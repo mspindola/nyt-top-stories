@@ -7,8 +7,4 @@ class Api
         response = HTTParty.get(@@url)
         binding.pry
     end
-
-   
-
-
 end
