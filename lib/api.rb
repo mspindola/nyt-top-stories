@@ -1,9 +1,14 @@
-class API
+class Api
+    
+        @@sesame = "wGPYpFwhGgzZ0zrugkltaT88AH7pMKKg"
 
-    # sesame = wGPYpFwhGgzZ0zrugkltaT88AH7pMKKg
-    # #get API data to a hash
-    # url = https://api.nytimes.com/svc/topstories/v2/{section}.json?api-key={sesame}
+    def self.articles_list(input)
+        @@url = "https://api.nytimes.com/svc/topstories/v2/#{input}.json?api-key=#{@@sesame}"
+        response = HTTParty.get(@@url)
+        binding.pry
+    end
 
+   
 
 
 end
