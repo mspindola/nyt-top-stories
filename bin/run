@@ -2,4 +2,6 @@
 
 require_relative('../config/environment')
 
-binding.pry
+#binding.pry
+
+Controller.new.start
