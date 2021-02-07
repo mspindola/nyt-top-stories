@@ -1,23 +1,17 @@
 class Controller
 
-    
-
     def start
     puts ""
-    puts "           Welcome to           "
+    puts "Extra extra! Read all about it!"
     puts ""
-    puts "THE NEW YORK TIMES - TOP STORIES"
-    puts ""
+    puts "Welcome to THE NEW YORK TIMES' Latest"
+    puts "What's of interest today?, type the section of your choice"
     self.choose_section
     end
 
     def choose_section 
-        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
-        sections = sections.map {|i| i.capitalize}
-        puts "Which section would you like to view?"
-        puts sections[1..5]
+        puts Api.show_sections[1..10] 
         
-       
         input = gets.strip
         Api.articles_list(input)
     end
