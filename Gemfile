@@ -8,5 +8,4 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 gem 'pry'
 gem 'httparty'
-gem 'terminal-table', '~> 3.0'
 gem 'launchy', '~> 2.4', '>= 2.4.3'

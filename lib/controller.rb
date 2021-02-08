@@ -2,7 +2,7 @@ class Controller
     def start
         system("clear")
         puts ""
-        puts "Abstract Abstract! Read about it!"
+        puts "Extra! Extra! Read about it!"
         puts ""
         puts "Welcome to THE NEW YORK TIMES' Latest"
         puts ""
@@ -20,10 +20,13 @@ class Controller
 
     def choose_section 
         section_input = gets.strip
-
-
-        articles = Api.articles_list(section_input)
-        self.show_options(articles)
+        if section_input == "arts" || "automobiles" || "books" || "business" || "fashion" || "food" || "health" || "home" || "insider" || "magazine" || "movies" || "nyregion" || "obituaries" || "opinion" || "politics" || "realestate" || "science" || "sports" || "sundayreview" || "technology" || "theater" || "t-magazine" || "travel" || "upshot" || "us" || "world"
+            articles = Api.articles_list(section_input)
+            self.show_options(articles)
+        elsif section_input != "arts" || "automobiles" || "books" || "business" || "fashion" || "food" || "health" || "home" || "insider" || "magazine" || "movies" || "nyregion" || "obituaries" || "opinion" || "politics" || "realestate" || "science" || "sports" || "sundayreview" || "technology" || "theater" || "t-magazine" || "travel" || "upshot" || "us" || "world"
+            puts "The entry was not recognized, please try again."
+            self.sections
+        end
     end
 
     def show_options(articles)
@@ -73,7 +76,8 @@ class Controller
             abort "Thank you for reading
             All the News That's Fit to Print"
         else
-            puts "The entry was not recognized, please try again."
+            puts "Thank you for reading
+            All the News That's Fit to Print"
         end
     end
 end
