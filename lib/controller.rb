@@ -20,7 +20,8 @@ class Controller
 
     def choose_section 
         section_input = gets.strip
-        
+
+
         articles = Api.articles_list(section_input)
         self.show_options(articles)
     end
@@ -42,25 +43,15 @@ class Controller
     def selected_article(articles)
         article_input = gets.strip
         if article_input == "1"
-            puts ""
             Launchy.open(articles.url1)
-            puts ""
         elsif article_input == "2"
-            puts ""
             Launchy.open(articles.url2)
-            puts ""
         elsif article_input == "3"
-            puts ""
             Launchy.open(articles.url3)
-            puts ""
         elsif article_input == "4"
-            puts ""
             Launchy.open(articles.url4)
-            puts ""
         elsif article_input == "5"
-            puts ""
             Launchy.open(articles.url5)
-            puts ""
         elsif article_input != "1" || "2" || "3" || "4" || "5"
             puts "The entry was not recognized, please try again."
             self.show_options(articles)
