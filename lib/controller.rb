@@ -20,6 +20,7 @@ class Controller
 
     def choose_section 
         section_input = gets.strip
+        
         articles = Api.articles_list(section_input)
         self.show_options(articles)
     end
@@ -64,27 +65,26 @@ class Controller
             puts "The entry was not recognized, please try again."
             self.show_options(articles)
         end
-        #self.article_options(articles)
+        self.post_article_options(articles)
     end
 
-    # def article_options(articles)
-    #     puts "Do you want to read the full article? 
-    #     Type:
-    #     'yes' to continue
-    #     'main' to return to main menu
-    #     'bye' to close the application"
-    #     article_options_input = gets.strip
-    #     if article_options_input == "yes" || "y"
-    #         Launchy.open(articles.url"#{article_options_input}")
-    #     elsif article_options_input == "main"
-    #         self.start
-    #     elsif article_options_input == "bye bye"
-    #         abort "Thank you for reading
-    #         All the News That's Fit to Print"
-    #     else
-    #         puts "The entry was not recognized, please try again."
-    #     end
-    # end
+    def post_article_options(articles)
+        
+        puts "What would you like to do next?"
+        puts "Type:"
+        puts "'main' to return to main menu"
+        puts "bye' to close the application"
+
+        post_article_options_input = gets.strip
+        if post_article_options_input == "main"
+            self.start
+        elsif post_article_options_input == "bye bye"
+            abort "Thank you for reading
+            All the News That's Fit to Print"
+        else
+            puts "The entry was not recognized, please try again."
+        end
+    end
 end
 
 
