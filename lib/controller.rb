@@ -15,15 +15,16 @@ class Controller
         sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
         sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
         puts sections
-        # section_input = gets.strip
-        # if sections.include? section_input
-        #   Api.articles_list(section_input)
-        #   self.show_options(articles)
+        section_input = gets.strip
+        #binding.pry
+        articles = Api.articles_list(section_input)
+        binding.pry
+        self.show_options(articles)
         # else
         #   puts "That is not a valid section, please trye again."
         #   self.choose_section
         # end
-        section
+        
 
 
     end
