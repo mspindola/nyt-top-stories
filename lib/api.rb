@@ -4,6 +4,7 @@ class Api
     def self.articles_list(input)
         @@url = "https://api.nytimes.com/svc/topstories/v2/#{input}.json?api-key=#{@@sesame}"
         response = HTTParty.get(@@url)
+        #binding.pry
         article_attributes = {
             title1: response["results"][0]["title"], abstract1: response["results"][0]["abstract"], url1: response["results"][0]["url"],
             title2: response["results"][1]["title"], abstract2: response["results"][1]["abstract"], url2: response["results"][1]["url"],

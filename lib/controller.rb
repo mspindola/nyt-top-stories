@@ -1,35 +1,24 @@
 class Controller
-    def start
+    def self.start
         system("clear")
         puts ""
         puts "Extra! Extra! Read about it!"
         puts ""
         puts "Welcome to THE NEW YORK TIMES' Latest"
         puts ""
-        puts "Type a section to get the latest articles"
+        puts "Type a section name to get the latest articles"
         puts ""
-        self.sections
-    end        
-
-    def sections
-        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
-        sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
         puts sections
         self.choose_section
-    end
+    end        
 
-    def choose_section 
+    def self.choose_section
+        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
+        sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
         section_input = gets.strip
-        if section_input == "arts" || "automobiles" || "books" || "business" || "fashion" || "food" || "health" || "home" || "insider" || "magazine" || "movies" || "nyregion" || "obituaries" || "opinion" || "politics" || "realestate" || "science" || "sports" || "sundayreview" || "technology" || "theater" || "t-magazine" || "travel" || "upshot" || "us" || "world"
-            articles = Api.articles_list(section_input)
-            self.show_options(articles)
-        elsif section_input != "arts" || "automobiles" || "books" || "business" || "fashion" || "food" || "health" || "home" || "insider" || "magazine" || "movies" || "nyregion" || "obituaries" || "opinion" || "politics" || "realestate" || "science" || "sports" || "sundayreview" || "technology" || "theater" || "t-magazine" || "travel" || "upshot" || "us" || "world"
-            puts "The entry was not recognized, please try again."
-            self.sections
-        end
     end
-
-    def show_options(articles)
+    
+    def self.show_options(articles)
         puts ""
         puts "These are the most recent articles:"
         puts ""
@@ -43,7 +32,7 @@ class Controller
         self.selected_article(articles)
     end
 
-    def selected_article(articles)
+    def self.selected_article(articles)
         article_input = gets.strip
         if article_input == "1"
             Launchy.open(articles.url1)
@@ -62,24 +51,21 @@ class Controller
         self.post_article_options(articles)
     end
 
-    def post_article_options(articles)
+    def self.post_article_options(articles)
         
         puts "What would you like to do next?"
         puts "Type:"
-        puts "'main' to return to main menu"
-        puts "bye' to close the application"
+        puts "main to return to main menu"
+        puts "bye to close the application"
 
         post_article_options_input = gets.strip
         if post_article_options_input == "main"
             self.start
-        elsif post_article_options_input == "bye bye"
-            abort "Thank you for reading
-            All the News That's Fit to Print"
-        else
-            puts "Thank you for reading
-            All the News That's Fit to Print"
+        elsif post_article_options_input == "bye"
+            abort "Thank you for reading - All the News That's Fit to Print."
         end
     end
+
 end
 
 

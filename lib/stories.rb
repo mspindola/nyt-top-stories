@@ -16,8 +16,8 @@ class Stories
       @@all
     end
 
-   
-
-
-
+    def self.get_articles(section_input)
+        articles = Api.articles_list(section_input)
+        Controller.show_options(articles)
+    end
 end

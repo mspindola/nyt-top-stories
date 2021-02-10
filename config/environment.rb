@@ -1,6 +1,5 @@
 require 'pry'
 require 'httparty'
-require 'awesome_print'
 require "launchy"
 
 require_relative('../lib/api')
