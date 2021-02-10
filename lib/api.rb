@@ -15,10 +15,3 @@ class Api
         end
 
 end
-
-# stories_list.count
-    # response = stories_list.each_with_index.to_h
-    # articles_attributes = {title: response["title"], abstract: response["abstract"], art_url: response["url"]}
-    # stories_list = response["results"]
-    # total_stories = stories_list.count
-    # response = stories_list.each_with_index.to_h

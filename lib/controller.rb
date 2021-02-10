@@ -8,17 +8,27 @@ class Controller
         puts ""
         puts "Type a section name to get the latest articles"
         puts ""
-        puts sections
         self.choose_section
     end        
 
     def self.choose_section
         sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
         sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
-        section_input = gets.strip
+        puts sections
+        # section_input = gets.strip
+        # if sections.include? section_input
+        #   Api.articles_list(section_input)
+        #   self.show_options(articles)
+        # else
+        #   puts "That is not a valid section, please trye again."
+        #   self.choose_section
+        # end
+        section
+
+
     end
     
-    def self.show_options(articles)
+    def show_options(articles)
         puts ""
         puts "These are the most recent articles:"
         puts ""
@@ -32,7 +42,7 @@ class Controller
         self.selected_article(articles)
     end
 
-    def self.selected_article(articles)
+    def selected_article(articles)
         article_input = gets.strip
         if article_input == "1"
             Launchy.open(articles.url1)
@@ -51,7 +61,7 @@ class Controller
         self.post_article_options(articles)
     end
 
-    def self.post_article_options(articles)
+    def post_article_options(articles)
         
         puts "What would you like to do next?"
         puts "Type:"
@@ -65,7 +75,6 @@ class Controller
             abort "Thank you for reading - All the News That's Fit to Print."
         end
     end
-
 end
 
 
