@@ -21,7 +21,7 @@ class Controller
     end
     
     def self.show_options(section_full)
-        
+        puts ""
         puts "These are the top 5 articles of the #{@section_input} section"
         puts ""
         puts "1. #{Stories.top_5_titles[0]}"
@@ -55,15 +55,16 @@ class Controller
     end
 
     def self.post_article_options(section_full)    
+        puts ""
         puts "What would you like to do next?"
-        puts "Type:"
-        puts "main to return to main menu"
-        puts "bye to close the application"
+        
+        puts "Type 'main' to return to main menu"
+        puts "Type 'exit' to close the application"
 
         post_article_options_input = gets.strip
         if post_article_options_input == "main"
             self.start
-        elsif post_article_options_input == "bye"
+        elsif post_article_options_input == "exit"
             abort "Thank you for reading - All the News That's Fit to Print."
         end
     end
