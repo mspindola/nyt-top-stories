@@ -8,19 +8,31 @@ class Controller
         puts ""
         puts "Type a section name to get the latest articles"
         puts ""
-        self.choose_section
+        self.show_all_sections
     end        
 
+    def self.show_all_sections
+        @sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "ny region", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
+        @sections = @sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
+        puts @sections
+        self.choose_section  
+    end
+
     def self.choose_section
-        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
-        sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
-        puts sections
-        @section_input = gets.strip
-        section_full = Api.articles_list(@section_input)
-        self.show_options(section_full)
+        @section_input = gets.strip.capitalize
+
+        if @sections.include?(@section_input)
+            section_full = Api.articles_list(@section_input)
+            self.show_options(section_full)
+        else
+            puts "** The entry was not recognized, please try again. **"
+            self.choose_section
+        end
+        
     end
     
     def self.show_options(section_full)
+        system('clear')
         puts ""
         puts "These are the top 5 articles of the #{@section_input} section"
         puts ""
@@ -29,7 +41,9 @@ class Controller
         puts "3. #{Stories.top_5_titles[2]}"
         puts "4. #{Stories.top_5_titles[3]}"
         puts "5. #{Stories.top_5_titles[4]}"
-        
+        puts ""
+        puts "Type 'main' to return to the main menu"
+
         self.selected_article(section_full)
     end
 
@@ -47,8 +61,11 @@ class Controller
             Launchy.open(Stories.url[4])
         elsif article_input == "5"
             Launchy.open(Stories.url[5])
+        elsif article_input == "main"
+            self.start
         elsif article_input != "1" || "2" || "3" || "4" || "5"
-            puts "The entry was not recognized, please try again."
+            puts ""
+            puts "** The entry was not recognized, please try again. **"
             self.show_options(section_full)    
         end
         self.post_article_options(section_full)
