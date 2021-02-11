@@ -16,31 +16,21 @@ class Controller
         sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
         puts sections
         section_input = gets.strip
-        #binding.pry
-        articles = Api.articles_list(section_input)
-        binding.pry
-        self.show_options(articles)
-        # else
-        #   puts "That is not a valid section, please trye again."
-        #   self.choose_section
-        # end
-        
-
-
+        section_full = Api.articles_list(section_input)
+        self.show_options(section_full)
     end
     
-    def show_options(articles)
-        puts ""
-        puts "These are the most recent articles:"
-        puts ""
-        puts "1. #{articles.title1}"
-        puts "2. #{articles.title2}"
-        puts "3. #{articles.title3}"
-        puts "4. #{articles.title4}"
-        puts "5. #{articles.title5}"
-        puts ""
-        puts "Type the number of the article to read the article:"
-        self.selected_article(articles)
+    def self.show_options(section_full)
+
+        puts "1. #{Stories.top_5_titles[0]}"
+        puts "2. #{Stories.top_5_titles[1]}"
+        puts "3. #{Stories.top_5_titles[2]}"
+        puts "4. #{Stories.top_5_titles[3]}"
+        puts "5. #{Stories.top_5_titles[4]}"
+        #binding.pry
+       
+
+        #self.selected_article(articles)
     end
 
     def selected_article(articles)
