@@ -12,23 +12,17 @@ class Controller
     end        
 
     def self.show_all_sections
-        @sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "NY region", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
-        @sections = @sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
-        puts @sections
-        self.choose_section  
-    end
-
-    def self.choose_section
+        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
+        sections = sections.map {|i| i.capitalize} 
+        puts sections
         @section_input = gets.strip.capitalize
-
-        if @sections.include?(@section_input)
-            section_full = Api.articles_list(@section_input)
+        if sections.include?(@section_input)
+            section_full = Api.new.articles_list(@section_input)
             self.show_options(section_full)
         else
             puts "** The entry was not recognized, please try again. **"
-            self.choose_section
-        end
-        
+            self.show_all_sections
+        end        
     end
     
     def self.show_options(section_full)
@@ -51,17 +45,17 @@ class Controller
         puts "Type the number of the article you want to read:"
         article_input = gets.strip
         if article_input == "1"
-            Launchy.open(Stories.url[0])
+            Launchy.open(Stories.link[0])
         elsif article_input == "2"
-            Launchy.open(Stories.url[1])
+            Launchy.open(Stories.link[1])
         elsif article_input == "3"
-            Launchy.open(Stories.url[2])
+            Launchy.open(Stories.link[2])
         elsif article_input == "4"
-            Launchy.open(Stories.url[3])
+            Launchy.open(Stories.link[3])
         elsif article_input == "5"
-            Launchy.open(Stories.url[4])
+            Launchy.open(Stories.link[4])
         elsif article_input == "menu"
-            self.start
+            Stories.clear && self.start
         elsif article_input != "1" || "2" || "3" || "4" || "5"
             system('clear')
             puts ""
@@ -82,9 +76,13 @@ class Controller
 
         post_article_options_input = gets.strip
         if post_article_options_input == "main"
-            self.start
+            Stories.clear && self.start
         elsif post_article_options_input == "exit"
             abort "Thank you for reading - All the News That's Fit to Print."
+        else
+            puts "** The entry was not recognized, please try again. **"
+            sleep(2) 
+            self.post_article_options(section_full)
         end
     end
 end
