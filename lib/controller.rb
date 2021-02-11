@@ -2,7 +2,7 @@ class Controller
     def self.start
         system("clear")
         puts ""
-        puts "Extra! Extra! Read about it!"
+        puts "Extra! Extra! Read all about it!"
         puts ""
         puts "Welcome to THE NEW YORK TIMES' Latest"
         puts ""
@@ -12,7 +12,7 @@ class Controller
     end        
 
     def self.show_all_sections
-        @sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "ny region", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
+        @sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "NY region", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
         @sections = @sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
         puts @sections
         self.choose_section  
@@ -63,8 +63,10 @@ class Controller
         elsif article_input == "menu"
             self.start
         elsif article_input != "1" || "2" || "3" || "4" || "5"
+            system('clear')
             puts ""
             puts "** The entry was not recognized, please try again. **"
+            sleep(2)
             self.show_options(section_full)    
         end
         self.post_article_options(section_full)
