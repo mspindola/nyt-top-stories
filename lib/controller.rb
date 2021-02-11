@@ -15,12 +15,14 @@ class Controller
         sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "nyregion", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
         sections = sections.map {|i| i.capitalize} #26 sections as parameters see: "https://developer.nytimes.com/docs/top-stories-product/1/routes/%7Bsection%7D.json/get
         puts sections
-        section_input = gets.strip
-        section_full = Api.articles_list(section_input)
+        @section_input = gets.strip
+        section_full = Api.articles_list(@section_input)
         self.show_options(section_full)
     end
     
     def self.show_options(section_full)
+        
+        puts "These are the top 5 articles of  the #{@section_input} section"
 
         puts "1. #{Stories.top_5_titles[0]}"
         puts "2. #{Stories.top_5_titles[1]}"
