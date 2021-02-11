@@ -17,12 +17,11 @@ class Stories #classes need to be singular
     end
   
     def self.top_5_titles
-        @@titles[0..5]
-        #binding.pry
+        @@titles[0..4]
     end
 
     def self.url
         @@url[0..4]
     end
-    
+
 end
