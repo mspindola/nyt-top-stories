@@ -22,6 +22,7 @@ class Controller
         else
             puts "** The entry was not recognized, please try again. **"
             self.show_all_sections
+            
         end        
     end
     
@@ -35,8 +36,10 @@ class Controller
         puts "3. #{Stories.top_5_titles[2]}"
         puts "4. #{Stories.top_5_titles[3]}"
         puts "5. #{Stories.top_5_titles[4]}"
+        puts ""
         puts "To go to the main menu type 'menu'"
-
+        #puts "If you want a list of all the articles type 'all'"
+        
         self.selected_article(section_full)
     end
 
