@@ -22,40 +22,39 @@ class Controller
     
     def self.show_options(section_full)
         
-        puts "These are the top 5 articles of  the #{@section_input} section"
-
+        puts "These are the top 5 articles of the #{@section_input} section"
+        puts ""
         puts "1. #{Stories.top_5_titles[0]}"
         puts "2. #{Stories.top_5_titles[1]}"
         puts "3. #{Stories.top_5_titles[2]}"
         puts "4. #{Stories.top_5_titles[3]}"
         puts "5. #{Stories.top_5_titles[4]}"
-        #binding.pry
-       
-
-        #self.selected_article(articles)
+        
+        self.selected_article(section_full)
     end
 
-    def selected_article(articles)
+    def self.selected_article(section_full)
+        puts ""
+        puts "Type the number of the article you want to read:"
         article_input = gets.strip
         if article_input == "1"
-            Launchy.open(articles.url1)
+            Launchy.open(Stories.url[1])
         elsif article_input == "2"
-            Launchy.open(articles.url2)
+            Launchy.open(Stories.url[2])
         elsif article_input == "3"
-            Launchy.open(articles.url3)
+            Launchy.open(Stories.url[3])
         elsif article_input == "4"
-            Launchy.open(articles.url4)
+            Launchy.open(Stories.url[4])
         elsif article_input == "5"
-            Launchy.open(articles.url5)
+            Launchy.open(Stories.url[5])
         elsif article_input != "1" || "2" || "3" || "4" || "5"
             puts "The entry was not recognized, please try again."
-            self.show_options(articles)
+            self.show_options(section_full)    
         end
-        self.post_article_options(articles)
+        self.post_article_options(section_full)
     end
 
-    def post_article_options(articles)
-        
+    def self.post_article_options(section_full)    
         puts "What would you like to do next?"
         puts "Type:"
         puts "main to return to main menu"

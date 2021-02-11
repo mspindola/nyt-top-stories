@@ -21,5 +21,8 @@ class Stories #classes need to be singular
         #binding.pry
     end
 
-
+    def self.url
+        @@url[0..4]
+    end
+    
 end
