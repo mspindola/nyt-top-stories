@@ -12,13 +12,16 @@ class Controller
     end        
 
     def self.show_all_sections
-        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "home", "insider", "magazine", "movies", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
+        sections = ["arts", "automobiles", "books", "business", "fashion", "food", "health", "insider", "magazine", "movies", "obituaries", "opinion", "politics", "realestate", "science", "sports", "sunday review", "technology", "theater", "t-magazine", "travel", "upshot", "us", "world"]
         sections = sections.map {|i| i.capitalize} 
         puts sections
         @section_input = gets.strip.capitalize
         if sections.include?(@section_input)
             section_full = Api.new.articles_list(@section_input)
             self.show_options(section_full)
+        # elsif @section_input == "exit"
+        #     puts "Thank you for reading - All the News That's Fit to Print."
+        #     abort
         else
             puts "** The entry was not recognized, please try again. **"
             self.show_all_sections
@@ -29,16 +32,16 @@ class Controller
     def self.show_options(section_full)
         system("clear")
         puts ""
-        puts "These are the top 5 articles of the #{@section_input} section"
+        puts "These are the top 5 articles of the #{@section_input} section."
+        puts "For an alphabetized list of articles of this section type 'all'."
         puts ""
-        puts "1. #{Stories.top_5_titles[0]}"
-        puts "2. #{Stories.top_5_titles[1]}"
-        puts "3. #{Stories.top_5_titles[2]}"
-        puts "4. #{Stories.top_5_titles[3]}"
-        puts "5. #{Stories.top_5_titles[4]}"
+        puts "1. #{Stories.titles[0]}"
+        puts "2. #{Stories.titles[1]}"
+        puts "3. #{Stories.titles[2]}"
+        puts "4. #{Stories.titles[3]}"
+        puts "5. #{Stories.titles[4]}"
         puts ""
-        puts "To go to the main menu type 'menu'"
-        #puts "If you want a list of all the articles type 'all'"
+        puts "To go to the main menu type 'menu' or 'exit' to close the application"
         
         self.selected_article(section_full)
     end
@@ -57,9 +60,13 @@ class Controller
             Launchy.open(Stories.link[3])
         elsif article_input == "5"
             Launchy.open(Stories.link[4])
+        elsif article_input == "all"
+            self.pull_article_from_all(section_full)
         elsif article_input == "menu"
             Stories.clear && self.start
-        elsif article_input != "1" || "2" || "3" || "4" || "5"
+        elsif article_input == "exit"
+            abort "Thank you for reading - All the News That's Fit to Print."
+        elsif article_input != "1" || "2" || "3" || "4" || "5" #|| "all"
             system('clear')
             puts ""
             puts "** The entry was not recognized, please try again. **"
@@ -70,7 +77,7 @@ class Controller
     end
 
     def self.post_article_options(section_full)
-        system('clear')    
+        #system('clear')    
         puts ""
         puts "What would you like to do next?"
         
@@ -87,6 +94,36 @@ class Controller
             sleep(2) 
             self.post_article_options(section_full)
         end
+    end
+
+    def self.all_section_articles(section_full)
+        puts "#{Stories.all_by_alpha_order}"
+        puts ""
+        puts "What would you like to do next?"
+        
+        puts "Type 'main' to return to main menu"
+        puts "Type 'exit' to close the application"
+
+        post_article_options_input = gets.strip
+        if post_article_options_input == "main"
+            Stories.clear && self.start
+        elsif post_article_options_input == "exit"
+            abort "Thank you for reading - All the News That's Fit to Print."
+        else
+            puts "** The entry was not recognized, please try again. **"
+            sleep(2) 
+            self.post_article_options(section_full)
+        end
+    end
+
+    def self.pull_article_from_all(section_full)
+        puts "These are the current stories in the #{@section_input} section."       
+        Stories.titles_all.each.with_index(1) do |x ,i|
+            puts "#{i}. #{x.title}"
+        end
+        puts "Enter the number of the article you want to read:"
+        input = gets.strip.to_i-1  
+        Launchy.open(Stories.titles_all[input].url)
     end
 end
 
